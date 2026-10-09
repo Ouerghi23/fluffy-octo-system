@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+
+  --color-cream-50: #fcfaf5;
+  --color-cream-100: #f7f2e7;
+  --color-cream-200: #ede4d0;
+
+  --color-forest-950: #0f2318;
+  --color-forest-900: #173424;
+  --color-forest-800: #1f4430;
+  --color-forest-700: #2c5c41;
+  --color-forest-500: #4f8a63;
+
+  --color-wheat-300: #ead7a1;
+  --color-wheat-500: #c9a24a;
+  --color-wheat-600: #a9842f;
+
+  --color-clay-500: #b5543c;
+  --color-bark-900: #2b2218;
+  --color-bark-600: #6b5a45;
+
+  /* Animations */
+  --animate-fade-up: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  --animate-fade-in: fade-in 0.2s ease-out backwards;
+  --animate-modal-in: modal-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  --animate-toast-in: toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  --animate-slide-in: slide-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+  }
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  }
+  @keyframes slide-in {
+    from { transform: translateX(-100%); }
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-bark-900);
+  background-color: var(--color-cream-100);
+  background-image: radial-gradient(circle at 1px 1px, rgb(107 90 69 / 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-wheat-300);
+  color: var(--color-forest-950);
+}
+
+@layer components {
+  .card {
+    border-radius: 1rem;
+    border: 1px solid var(--color-cream-200);
+    background: var(--color-cream-50);
+    box-shadow:
+      0 1px 2px rgb(43 34 24 / 0.04),
+      0 12px 32px -16px rgb(43 34 24 / 0.18);
+  }
+
+  .card-hover {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 2px 4px rgb(43 34 24 / 0.05),
+      0 24px 48px -20px rgb(43 34 24 / 0.3);
+  }
+
+  .skeleton {
+    border-radius: 0.75rem;
+    background: linear-gradient(
+      90deg,
+      var(--color-cream-200) 0%,
+      var(--color-cream-50) 50%,
+      var(--color-cream-200) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+
+  .input {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-cream-200);
+    background: #fff;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .input:focus {
+    border-color: var(--color-forest-500);
+    box-shadow: 0 0 0 4px rgb(79 138 99 / 0.15);
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.75rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-danger:active {
+    transform: scale(0.98);
+  }
+  .btn-primary {
+    background: var(--color-forest-800);
+    color: var(--color-cream-50);
+  }
+  .btn-primary:hover {
+    background: var(--color-forest-700);
+  }
+  .btn-secondary {
+    border: 1px solid var(--color-cream-200);
+    background: var(--color-cream-50);
+    color: var(--color-bark-900);
+  }
+  .btn-secondary:hover {
+    background: var(--color-cream-200);
+  }
+  .btn-danger {
+    background: var(--color-clay-500);
+    color: #fff;
+  }
+  .btn-danger:hover {
+    background: #9c4430;
+  }
+  .btn-primary:disabled,
+  .btn-danger:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
