@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { HeartPulse, LayoutDashboard, Menu, Milk, Sparkles, Tag, Wallet, Wheat, X } from "lucide-react";
 
 const NAV = [
   { to: "/", label: "Tableau de bord", icon: LayoutDashboard },
   { to: "/cows", label: "Troupeau", icon: Tag },
+  { to: "/assistant", label: "Assistant IA", icon: Sparkles },
   { to: "/milk", label: "Production", icon: Milk, soon: true },
   { to: "/health", label: "Santé", icon: HeartPulse, soon: true },
   { to: "/finances", label: "Finances", icon: Wallet, soon: true },
@@ -60,17 +61,21 @@ function Navigation({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-function AiCard() {
+function AiCard({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <div className="relative m-4 overflow-hidden rounded-2xl bg-linear-to-br from-wheat-300 via-wheat-500 to-wheat-600 p-4 text-forest-950">
+    <Link
+      to="/assistant"
+      onClick={onNavigate}
+      className="group relative m-4 block overflow-hidden rounded-2xl bg-linear-to-br from-wheat-300 via-wheat-500 to-wheat-600 p-4 text-forest-950 transition hover:shadow-lg hover:shadow-black/20"
+    >
       <Wheat aria-hidden className="absolute -bottom-4 -right-4 h-20 w-20 opacity-15" />
       <Sparkles size={20} />
       <p className="mt-2 font-display text-base">Assistant IA</p>
       <p className="text-xs text-forest-950/75">Posez vos questions sur la ferme en langage naturel.</p>
-      <span className="mt-3 inline-block rounded-full bg-forest-950/10 px-2.5 py-1 text-[11px] font-semibold">
-        Bientôt disponible
+      <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-forest-950/10 px-2.5 py-1 text-[11px] font-semibold">
+        Ouvrir l'assistant <span className="transition group-hover:translate-x-0.5">→</span>
       </span>
-    </div>
+    </Link>
   );
 }
 

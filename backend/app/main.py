@@ -1,3 +1,4 @@
+from app.routers import ai
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -20,6 +21,7 @@ app.add_middleware(
 app.include_router(cows.router)
 app.include_router(milk.router)
 app.include_router(stats.router)
+app.include_router(ai.router)
 
 # Les photos sont accessibles via http://localhost:8000/uploads/cows/...
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")

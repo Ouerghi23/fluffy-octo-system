@@ -15,6 +15,8 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   if (res.status === 204) return undefined as T;
   return res.json();
 }
+export type ChatMessage = { role: "user" | "assistant"; content: string };
+export type ChatResponse = { reply: string; tools_used: string[] };
 
 export const photoUrl = (path: string | null | undefined) => (path ? `${BASE_URL}${path}` : null);
 
@@ -81,4 +83,6 @@ export const api = {
   cowMilk: (id: number) => request<MilkRecord[]>(`/milk/?cow_id=${id}`),
   addMilk: (data: Omit<MilkRecord, "id">) =>
     request<MilkRecord>("/milk/", { method: "POST", body: JSON.stringify(data) }),
+    chat: (messages: ChatMessage[]) =>
+    request<ChatResponse>("/ai/chat", { method: "POST", body: JSON.stringify({ messages }) }),
 };
